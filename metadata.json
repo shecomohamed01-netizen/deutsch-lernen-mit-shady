@@ -1,0 +1,6 @@
+{
+  "name": "أكاديمية شادي للغة الألمانية",
+  "description": "المنصة الأكاديمية المتكاملة لتعلم الألمانية والترجمة - مستويات A1, A2, B1, B2 مع بطاقات تفاعلية، استوديو القواعد، ونظام الواجبات والتمارين.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

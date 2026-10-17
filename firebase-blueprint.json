@@ -1,0 +1,131 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account profile for the academy student",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth user ID",
+          "maxLength": 128
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address",
+          "maxLength": 256
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Student display name",
+          "maxLength": 100
+        },
+        "currentLevel": {
+          "type": "string",
+          "description": "Academic study level",
+          "enum": ["A1", "A2", "B1", "B2"]
+        },
+        "masteredCount": {
+          "type": "integer",
+          "description": "Number of mastered vocabulary items"
+        },
+        "completedHomeworkCount": {
+          "type": "integer",
+          "description": "Total completed homework assignments"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Account registration timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Profile update timestamp"
+        }
+      },
+      "required": ["uid", "email", "currentLevel", "createdAt", "updatedAt"]
+    },
+    "UserProgress": {
+      "title": "UserProgress",
+      "description": "Tracks mastered vocabulary word IDs and settings",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner student user ID",
+          "maxLength": 128
+        },
+        "masteredWordIds": {
+          "type": "array",
+          "description": "List of vocabulary IDs marked as mastered"
+        },
+        "currentLevel": {
+          "type": "string",
+          "description": "Active level",
+          "enum": ["A1", "A2", "B1", "B2"]
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": ["userId", "masteredWordIds", "currentLevel", "updatedAt"]
+    },
+    "HomeworkSubmission": {
+      "title": "HomeworkSubmission",
+      "description": "Record of a completed homework assignment",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Submission record ID",
+          "maxLength": 128
+        },
+        "userId": {
+          "type": "string",
+          "description": "Student user ID",
+          "maxLength": 128
+        },
+        "level": {
+          "type": "string",
+          "description": "Level tested",
+          "enum": ["A1", "A2", "B1", "B2"]
+        },
+        "score": {
+          "type": "integer",
+          "description": "Correct answers score"
+        },
+        "totalQuestions": {
+          "type": "integer",
+          "description": "Total number of questions"
+        },
+        "percentage": {
+          "type": "integer",
+          "description": "Percentage score (0-100)"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when assignment was completed"
+        }
+      },
+      "required": ["id", "userId", "level", "score", "totalQuestions", "percentage", "completedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Private user profile for academy students"
+    },
+    "/users/{userId}/progress/{progressId}": {
+      "schema": "UserProgress",
+      "description": "Vocabulary mastery progress documents"
+    },
+    "/users/{userId}/homework_submissions/{submissionId}": {
+      "schema": "HomeworkSubmission",
+      "description": "Homework score history for the student"
+    }
+  }
+}
